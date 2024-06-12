@@ -2,6 +2,10 @@
 #include <time.h>
 #include <raylib.h>
 
+#include "debug.h"
+
+//#define DEBUG 
+
 #define TIMER_SECONDS 1500
 
 void GetTimeString(char* str, double seconds) {
@@ -12,7 +16,13 @@ void GetTimeString(char* str, double seconds) {
 }
 
 void DrawRestart() {
-	DrawCircle(30, 250, 10, WHITE);
+	Vector2 center;
+	center.x = 40;
+	center.y = 265;
+	DrawCircleSectorLines(center, 10, -30, 270, 10, WHITE);
+	DrawCircleV(center, 9, BLACK);
+	DrawLine(48, 260, 54, 260, WHITE);
+	DrawLine(48, 260, 46, 266, WHITE);
 }
 
 bool IsRestartClicked() {
@@ -41,6 +51,10 @@ int main() {
 	
 	while(!WindowShouldClose()) {
 		BeginDrawing();
+		
+		#ifdef DEBUG
+		ShowMouseCoords();
+		#endif
 		
 		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) & !started) {
 			started = true;
